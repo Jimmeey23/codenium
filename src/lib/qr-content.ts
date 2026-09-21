@@ -36,7 +36,7 @@ export const CONTENT_TYPES: {
     icon: "📶",
     hint: "One-tap network join",
     fields: [
-      { key: "ssid", label: "Network name (SSID)", placeholder: "Prism-Guest" },
+      { key: "ssid", label: "Network name (SSID)", placeholder: "Codenium-Guest" },
       { key: "password", label: "Password", placeholder: "••••••••", half: true },
       {
         key: "encryption",
@@ -68,11 +68,11 @@ export const CONTENT_TYPES: {
     fields: [
       { key: "firstName", label: "First name", placeholder: "Ada", half: true },
       { key: "lastName", label: "Last name", placeholder: "Lovelace", half: true },
-      { key: "org", label: "Company", placeholder: "Prism Labs", half: true },
+      { key: "org", label: "Company", placeholder: "Codenium Labs", half: true },
       { key: "title", label: "Job title", placeholder: "Head of Design", half: true },
       { key: "phone", label: "Phone", placeholder: "+1 555 0100", half: true },
-      { key: "email", label: "Email", placeholder: "ada@prism.dev", half: true },
-      { key: "website", label: "Website", placeholder: "https://prism.dev" },
+      { key: "email", label: "Email", placeholder: "ada@codenium.dev", half: true },
+      { key: "website", label: "Website", placeholder: "https://codenium.dev" },
       { key: "address", label: "Address", placeholder: "1 Infinite Loop, CA" },
     ],
   },
@@ -82,7 +82,7 @@ export const CONTENT_TYPES: {
     icon: "✉️",
     hint: "Pre-filled email",
     fields: [
-      { key: "to", label: "To", placeholder: "hello@prism.dev" },
+      { key: "to", label: "To", placeholder: "hello@codenium.dev" },
       { key: "subject", label: "Subject", placeholder: "Hey there" },
       { key: "body", label: "Message", type: "textarea", placeholder: "Write something…" },
     ],
@@ -226,24 +226,24 @@ export function buildPayload(type: ContentType, f: ContentFields): string {
 export function defaultContent(type: ContentType): ContentFields {
   switch (type) {
     case "url":
-      return { url: "https://prism.qr/studio" };
+      return { url: "https://codenium.qr/studio" };
     case "text":
-      return { text: "Hello from Prism QR ✨" };
+      return { text: "Hello from Codenium ✨" };
     case "wifi":
-      return { ssid: "Prism-Guest", password: "scanme123", encryption: "WPA", hidden: "false" };
+      return { ssid: "Codenium-Guest", password: "scanme123", encryption: "WPA", hidden: "false" };
     case "vcard":
       return {
         firstName: "Ada",
         lastName: "Lovelace",
-        org: "Prism Labs",
+        org: "Codenium Labs",
         title: "Head of Design",
         phone: "+1 555 0100",
-        email: "ada@prism.dev",
-        website: "https://prism.dev",
+        email: "ada@codenium.dev",
+        website: "https://codenium.dev",
         address: "",
       };
     case "email":
-      return { to: "hello@prism.dev", subject: "Hi Prism", body: "I scanned your code!" };
+      return { to: "hello@codenium.dev", subject: "Hi Codenium", body: "I scanned your code!" };
     case "sms":
       return { phone: "+1 555 0100", message: "Hey!" };
     case "phone":

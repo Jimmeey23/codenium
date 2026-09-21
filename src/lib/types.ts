@@ -195,7 +195,7 @@ export const DEFAULT_DESIGN: DesignConfig = {
 export const DEFAULT_LANDING: LandingConfig = {
   theme: "aurora",
   headline: "Welcome 👋",
-  subheadline: "You just scanned a Prism QR code",
+  subheadline: "You just scanned a Codenium code",
   body: "Everything you need, one scan away. Tap a link below to continue.",
   avatarUrl: DEFAULT_LOGO,
   buttons: [
@@ -217,8 +217,8 @@ export type StylePreset = {
 
 export const STYLE_PRESETS: StylePreset[] = [
   {
-    id: "prism",
-    name: "Prism",
+    id: "codenium",
+    name: "Codenium",
     swatch: ["#7c3aed", "#06b6d4"],
     design: {
       dotType: "extra-rounded",

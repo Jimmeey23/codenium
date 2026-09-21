@@ -10,16 +10,16 @@ export function SiteHeader({ active }: { active?: "studio" | "dashboard" }) {
             <span className="absolute -inset-1.5 rounded-xl bg-violet-500/30 blur-md transition group-hover:bg-violet-400/50" />
             <Image
               src="/brand/logo.png"
-              alt="Prism QR"
+              alt="Codenium"
               width={40}
               height={40}
-              className="relative h-9 w-9 rounded-xl object-cover ring-1 ring-white/15"
+              className="relative h-9 w-9 rounded-xl bg-white object-contain p-1 ring-1 ring-white/15"
               priority
             />
           </span>
           <span>
             <span className="block text-sm font-bold leading-tight tracking-tight text-white">
-              Prism QR
+              Codenium
             </span>
             <span className="block text-[10px] uppercase tracking-[0.2em] text-white/35">
               3D QR Studio

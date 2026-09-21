@@ -77,7 +77,7 @@ export function ExportPanel({
           </p>
         )}
         <Field label="File name">
-          <TextInput value={filename} onChange={setFilename} placeholder="prism-qr" />
+          <TextInput value={filename} onChange={setFilename} placeholder="codenium-qr" />
         </Field>
       </Panel>
 

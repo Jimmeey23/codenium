@@ -39,7 +39,7 @@ export function initialState(): StudioState {
   return {
     id: null,
     slug: null,
-    name: "My first Prism code",
+    name: "My first Codenium code",
     contentType: "url",
     content: defaultContent("url"),
     dynamic: true,

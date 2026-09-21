@@ -38,7 +38,7 @@ export function Studio({ initialCode }: { initialCode: QrCodeDTO | null }) {
   const [origin, setOrigin] = useState("");
   const [format, setFormat] = useState<ExportFormat>("png");
   const [scale, setScale] = useState(2);
-  const [filename, setFilename] = useState("prism-qr");
+  const [filename, setFilename] = useState("codenium-qr");
   const [busy, setBusy] = useState<string | null>(null);
   const [toast, setToast] = useState<{ tone: "ok" | "err"; msg: string } | null>(null);
 
@@ -57,7 +57,7 @@ export function Studio({ initialCode }: { initialCode: QrCodeDTO | null }) {
     setState((s) => ({ ...s, contentType: t, content: defaultContent(t) }));
 
   const payload = payloadOf(state);
-  const data = encodedData(state, origin || "https://prism.qr");
+  const data = encodedData(state, origin || "https://codenium.qr");
   const warning = useMemo(() => payloadWarning(payload, state.design.ecc), [payload, state.design.ecc]);
   const status = codeStatus({
     active: state.active,
@@ -113,7 +113,7 @@ export function Studio({ initialCode }: { initialCode: QrCodeDTO | null }) {
         data: encodedData(s, origin || window.location.origin),
         format: fmt,
         scale,
-        filename: filename || "prism-qr",
+        filename: filename || "codenium-qr",
       });
       setToast({ tone: "ok", msg: `${fmt.toUpperCase()} downloaded ✓` });
     } catch (e) {
@@ -133,7 +133,7 @@ export function Studio({ initialCode }: { initialCode: QrCodeDTO | null }) {
       }
       const target = encodedData(s, origin || window.location.origin);
       for (const fmt of ["png", "svg", "pdf", "jpeg", "webp"] as ExportFormat[]) {
-        await exportQr({ design: s.design, data: target, format: fmt, scale, filename: filename || "prism-qr" });
+        await exportQr({ design: s.design, data: target, format: fmt, scale, filename: filename || "codenium-qr" });
         await new Promise((r) => setTimeout(r, 350));
       }
       setToast({ tone: "ok", msg: "All five formats downloaded ✓" });

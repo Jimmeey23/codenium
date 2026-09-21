@@ -112,7 +112,7 @@ export function Landing({
 
         {config.showBranding ? (
           <p className="mt-6 text-center text-xs text-white/35">
-            Powered by <span className="font-semibold text-white/60">Prism QR</span> · /r/{slug}
+            Powered by <span className="font-semibold text-white/60">Codenium</span> · /r/{slug}
           </p>
         ) : null}
       </div>

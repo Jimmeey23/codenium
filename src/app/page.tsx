@@ -80,7 +80,7 @@ export default async function HomePage({
         </section>
 
         <footer className="relative border-t border-white/5 py-10 text-center text-xs text-white/30">
-          Prism QR Studio · designed for print, web and everything in between.
+          Codenium Studio · designed for print, web and everything in between.
         </footer>
       </main>
     </>

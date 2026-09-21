@@ -74,7 +74,7 @@ export function RulesPanel({
           </Field>
         ) : (
           <p className="rounded-lg bg-emerald-400/10 px-3 py-2 text-[11px] text-emerald-200/90 ring-1 ring-emerald-400/20">
-            ♾️ This code will keep working forever — the default for every Prism code.
+            ♾️ This code will keep working forever — the default for every Codenium code.
           </p>
         )}
 
@@ -316,7 +316,7 @@ function LandingBuilder({
       <Toggle
         checked={landing.showBranding}
         onChange={(v) => patch({ landing: { ...landing, showBranding: v } })}
-        label="Show Prism badge"
+        label="Show Codenium badge"
       />
     </div>
   );
