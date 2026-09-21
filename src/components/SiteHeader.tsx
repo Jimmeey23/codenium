@@ -1,7 +1,14 @@
 import Image from "next/image";
 import Link from "next/link";
+import { UserMenu } from "@/components/auth/UserMenu";
+import { createClient } from "@/lib/supabase/server";
 
-export function SiteHeader({ active }: { active?: "studio" | "dashboard" }) {
+export async function SiteHeader({ active }: { active?: "studio" | "dashboard" }) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   return (
     <header className="sticky top-0 z-40 border-b border-white/[0.07] bg-[#050505]/85 backdrop-blur-xl">
       <div className="mx-auto flex max-w-[1600px] items-center justify-between gap-4 px-4 py-3 sm:px-8">
@@ -57,6 +64,16 @@ export function SiteHeader({ active }: { active?: "studio" | "dashboard" }) {
           >
             New code
           </Link>
+          {user ? (
+            <UserMenu email={user.email ?? "Signed in"} />
+          ) : (
+            <Link
+              href="/login"
+              className="ml-1 rounded-xl border border-white/12 px-3.5 py-2 text-xs font-semibold text-white/75 transition hover:bg-white/[0.07] hover:text-white sm:text-sm"
+            >
+              Sign in
+            </Link>
+          )}
         </nav>
       </div>
     </header>
