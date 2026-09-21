@@ -32,7 +32,7 @@ export function ContentPanel({
               className={cx(
                 "group flex flex-col items-center gap-1.5 rounded-xl border px-2 py-3 text-[11px] font-medium transition",
                 state.contentType === t.id
-                  ? "border-violet-400/50 bg-violet-500/15 text-white shadow-lg shadow-violet-900/30"
+                  ? "border-cyan-400/50 bg-cyan-400/10 text-white shadow-[0_0_18px_-6px_rgba(0,229,255,0.7)]"
                   : "border-white/8 bg-white/[0.03] text-white/55 hover:border-white/20 hover:text-white",
               )}
             >

@@ -54,7 +54,7 @@ export function ExportPanel({
               className={cx(
                 "rounded-xl border p-3 text-left transition",
                 format === f.id
-                  ? "border-violet-400/50 bg-violet-500/15 shadow-lg shadow-violet-900/30"
+                  ? "border-cyan-400/50 bg-cyan-400/10 shadow-[0_0_18px_-6px_rgba(0,229,255,0.7)]"
                   : "border-white/8 bg-white/[0.03] hover:border-white/20",
               )}
             >

@@ -42,7 +42,7 @@ export default async function HomePage({
         <section className="relative mx-auto max-w-[1600px] px-4 pb-6 pt-12 sm:px-8 sm:pt-16">
           <div className="mx-auto max-w-3xl text-center">
             <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3.5 py-1.5 text-[11px] font-medium uppercase tracking-[0.18em] text-white/60">
-              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-cyan-400" />
+              <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-cyan-400 shadow-[0_0_10px_2px_rgba(0,229,255,0.8)]" />
               Studio · 3D engine · dynamic links
             </span>
             <h1 className="mt-6 text-balance text-4xl font-black leading-[1.05] tracking-tight sm:text-6xl">
@@ -81,6 +81,9 @@ export default async function HomePage({
 
         <footer className="relative border-t border-white/5 py-10 text-center text-xs text-white/30">
           Codenium Studio · designed for print, web and everything in between.
+          <span className="mt-1.5 block text-[11px] tracking-[0.18em] text-white/20">
+            By Jimmeey Gondaa
+          </span>
         </footer>
       </main>
     </>

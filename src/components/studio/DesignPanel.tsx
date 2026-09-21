@@ -9,6 +9,8 @@ import {
   type DesignConfig,
   type DotType,
   type Ecc,
+  type EyeBallStyle,
+  type EyeFrameStyle,
 } from "@/lib/types";
 import { Button, ColorField, Field, Panel, Segmented, Select, Slider, TextInput, Toggle, cx } from "../ui";
 
@@ -72,29 +74,66 @@ export function DesignPanel({ design, patch }: { design: DesignConfig; patch: Pa
               ]}
             />
           </Field>
-          <div className="grid grid-cols-2 gap-3">
-            <Field label="Eye frame">
-              <Select<CornerSquareType>
-                value={design.cornerSquareType}
-                onChange={(v) => patch({ cornerSquareType: v })}
+          <Field label="Eye frame shape" hint="Custom vector eyes">
+            <Select<EyeFrameStyle>
+              value={design.eyeFrameStyle}
+              onChange={(v) => patch({ eyeFrameStyle: v })}
+              options={[
+                { value: "auto", label: "Auto (library)" },
+                { value: "square", label: "Square" },
+                { value: "rounded", label: "Rounded" },
+                { value: "circle", label: "Circle" },
+                { value: "leaf", label: "Leaf" },
+                { value: "leaf-flip", label: "Leaf flipped" },
+                { value: "shield", label: "Shield" },
+                { value: "cut", label: "Cut corner" },
+                { value: "diamond", label: "Diamond" },
+                { value: "bars", label: "Bars" },
+                { value: "dotted", label: "Dotted" },
+              ]}
+            />
+          </Field>
+          {design.eyeFrameStyle === "auto" ? (
+            <div className="grid grid-cols-2 gap-3">
+              <Field label="Eye frame">
+                <Select<CornerSquareType>
+                  value={design.cornerSquareType}
+                  onChange={(v) => patch({ cornerSquareType: v })}
+                  options={[
+                    { value: "square", label: "Square" },
+                    { value: "dot", label: "Dot" },
+                    { value: "extra-rounded", label: "Rounded" },
+                  ]}
+                />
+              </Field>
+              <Field label="Eye ball">
+                <Select<CornerDotType>
+                  value={design.cornerDotType}
+                  onChange={(v) => patch({ cornerDotType: v })}
+                  options={[
+                    { value: "square", label: "Square" },
+                    { value: "dot", label: "Dot" },
+                  ]}
+                />
+              </Field>
+            </div>
+          ) : (
+            <Field label="Eye ball shape">
+              <Select<EyeBallStyle>
+                value={design.eyeBallStyle}
+                onChange={(v) => patch({ eyeBallStyle: v })}
                 options={[
+                  { value: "rounded", label: "Rounded" },
                   { value: "square", label: "Square" },
                   { value: "dot", label: "Dot" },
-                  { value: "extra-rounded", label: "Rounded" },
+                  { value: "leaf", label: "Leaf" },
+                  { value: "leaf-flip", label: "Leaf flipped" },
+                  { value: "diamond", label: "Diamond" },
+                  { value: "cut", label: "Cut corner" },
                 ]}
               />
             </Field>
-            <Field label="Eye ball">
-              <Select<CornerDotType>
-                value={design.cornerDotType}
-                onChange={(v) => patch({ cornerDotType: v })}
-                options={[
-                  { value: "square", label: "Square" },
-                  { value: "dot", label: "Dot" },
-                ]}
-              />
-            </Field>
-          </div>
+          )}
           <div className="grid grid-cols-2 gap-2">
             <ColorField
               label="Eye frame"
@@ -107,6 +146,23 @@ export function DesignPanel({ design, patch }: { design: DesignConfig; patch: Pa
               onChange={(v) => patch({ cornerDotColor: v })}
             />
           </div>
+          {design.eyeFrameStyle !== "auto" ? (
+            <>
+              <Toggle
+                checked={design.eyeTwoTone}
+                onChange={(v) => patch({ eyeTwoTone: v })}
+                label="Two-tone eyes"
+                description="Top-right and bottom-left frames take the accent colour."
+              />
+              {design.eyeTwoTone ? (
+                <ColorField
+                  label="Side eye accent"
+                  value={design.eyeAccentColor}
+                  onChange={(v) => patch({ eyeAccentColor: v })}
+                />
+              ) : null}
+            </>
+          ) : null}
         </Panel>
       ) : null}
 

@@ -5,7 +5,9 @@ export type Matrix = { size: number; dark: boolean[][] };
 
 export function buildMatrix(data: string, ecc: Ecc): Matrix {
   const qr = qrcode(0, ecc);
-  qr.addData(data || " ");
+  // "Byte" matches the mode qr-code-styling uses, so the module count of the
+  // flat engine and of our custom eye overlay always agree.
+  qr.addData(data || " ", "Byte");
   qr.make();
   const size = qr.getModuleCount();
   const dark: boolean[][] = [];

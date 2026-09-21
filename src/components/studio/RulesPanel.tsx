@@ -54,7 +54,7 @@ export function RulesPanel({
                 className={cx(
                   "rounded-xl border px-2 py-2 text-xs font-medium transition",
                   state.expiryMode === o.value
-                    ? "border-violet-400/50 bg-violet-500/15 text-white"
+                    ? "border-cyan-400/50 bg-cyan-400/10 text-white"
                     : "border-white/8 bg-white/[0.03] text-white/55 hover:border-white/20 hover:text-white",
                 )}
               >

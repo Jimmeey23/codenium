@@ -140,7 +140,7 @@ export default async function CodeAnalyticsPage({
                   <div key={d.key} className="group flex flex-1 flex-col items-center gap-2">
                     <div className="relative flex w-full flex-1 items-end">
                       <div
-                        className="w-full rounded-t-md bg-gradient-to-t from-violet-600/60 to-cyan-400/90 transition-all group-hover:from-violet-500 group-hover:to-cyan-300"
+                        className="w-full rounded-t-md bg-gradient-to-t from-blue-700/60 to-cyan-400/90 transition-all group-hover:from-blue-600 group-hover:to-cyan-300"
                         style={{ height: `${Math.max(3, (d.count / peak) * 100)}%` }}
                       />
                       <span className="absolute -top-5 left-1/2 -translate-x-1/2 text-[10px] font-semibold text-white/60 opacity-0 transition group-hover:opacity-100">
@@ -173,7 +173,7 @@ export default async function CodeAnalyticsPage({
                           </div>
                           <div className="mt-1 h-1.5 overflow-hidden rounded-full bg-white/8">
                             <div
-                              className="h-full rounded-full bg-gradient-to-r from-violet-500 to-cyan-400"
+                              className="h-full rounded-full bg-gradient-to-r from-blue-600 to-cyan-400"
                               style={{ width: `${(count / Math.max(1, scans.length)) * 100}%` }}
                             />
                           </div>

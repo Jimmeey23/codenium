@@ -37,7 +37,7 @@ export function Field({
 }
 
 const inputBase =
-  "w-full rounded-xl border border-white/10 bg-white/[0.04] px-3 py-2.5 text-sm text-white placeholder-white/25 outline-none transition focus:border-violet-400/60 focus:bg-white/[0.07] focus:ring-2 focus:ring-violet-500/25";
+  "w-full rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-sm text-white placeholder-white/25 outline-none transition focus:border-cyan-400/60 focus:bg-white/[0.06] focus:ring-2 focus:ring-cyan-400/20";
 
 export function TextInput({
   value,
@@ -105,7 +105,7 @@ export function Select<T extends string>({
         className={cx(inputBase, "appearance-none pr-9")}
       >
         {options.map((o) => (
-          <option key={o.value} value={o.value} className="bg-[#120f28] text-white">
+          <option key={o.value} value={o.value} className="bg-[#0b0b0b] text-white">
             {o.label}
           </option>
         ))}
@@ -161,7 +161,7 @@ export function ColorField({
   onChange: (v: string) => void;
 }) {
   return (
-    <label className="flex items-center gap-2.5 rounded-xl border border-white/10 bg-white/[0.04] px-2.5 py-2 transition hover:border-white/20">
+    <label className="flex items-center gap-2.5 rounded-xl border border-white/10 bg-black/40 px-2.5 py-2 transition hover:border-cyan-400/40">
       <input
         type="color"
         value={value}
@@ -193,7 +193,7 @@ export function Toggle({
     <button
       type="button"
       onClick={() => onChange(!checked)}
-      className="flex w-full items-center justify-between gap-3 rounded-xl border border-white/10 bg-white/[0.03] px-3 py-2.5 text-left transition hover:border-white/20 hover:bg-white/[0.06]"
+      className="flex w-full items-center justify-between gap-3 rounded-xl border border-white/10 bg-black/40 px-3 py-2.5 text-left transition hover:border-cyan-400/40 hover:bg-white/[0.05]"
     >
       <span className="min-w-0">
         <span className="block text-sm font-medium text-white/90">{label}</span>
@@ -204,7 +204,7 @@ export function Toggle({
       <span
         className={cx(
           "relative h-6 w-11 shrink-0 rounded-full transition",
-          checked ? "bg-gradient-to-r from-violet-500 to-cyan-400" : "bg-white/15",
+          checked ? "bg-gradient-to-r from-blue-600 to-cyan-400 shadow-[0_0_14px_rgba(0,229,255,0.45)]" : "bg-white/12",
         )}
       >
         <span
@@ -230,7 +230,7 @@ export function Segmented<T extends string>({
   size?: "sm" | "md";
 }) {
   return (
-    <div className="flex flex-wrap gap-1 rounded-xl border border-white/10 bg-white/[0.03] p-1">
+    <div className="flex flex-wrap gap-1 rounded-xl border border-white/10 bg-black/40 p-1">
       {options.map((o) => (
         <button
           key={o.value}
@@ -240,7 +240,7 @@ export function Segmented<T extends string>({
             "flex-1 rounded-lg text-center font-medium transition",
             size === "sm" ? "px-2 py-1.5 text-[11px]" : "px-3 py-2 text-xs",
             value === o.value
-              ? "bg-gradient-to-br from-violet-500/90 to-indigo-600/90 text-white shadow-lg shadow-violet-900/40"
+              ? "bg-white/[0.07] text-white ring-1 ring-cyan-400/50 shadow-[0_0_16px_-4px_rgba(0,229,255,0.5)]"
               : "text-white/55 hover:bg-white/5 hover:text-white/85",
           )}
         >
@@ -264,7 +264,7 @@ export function Panel({
   action?: ReactNode;
 }) {
   return (
-    <section className="rounded-2xl border border-white/8 bg-white/[0.02] p-4">
+    <section className="rounded-2xl border border-white/[0.07] bg-[#0b0b0b]/80 p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]">
       <header className="mb-3 flex items-start justify-between gap-3">
         <div>
           <h3 className="text-sm font-semibold text-white/90">{title}</h3>
@@ -308,9 +308,10 @@ export function Button({
   title?: string;
 }) {
   const styles: Record<string, string> = {
-    primary: "btn-primary text-white",
-    ghost: "border border-white/12 bg-white/[0.04] text-white/80 hover:bg-white/[0.09]",
-    subtle: "bg-white/[0.06] text-white/70 hover:bg-white/[0.12]",
+    primary: "btn-primary",
+    ghost:
+      "border border-white/12 bg-white/[0.03] text-white/80 hover:border-cyan-400/40 hover:bg-white/[0.07] hover:text-white",
+    subtle: "bg-white/[0.05] text-white/70 hover:bg-white/[0.1]",
     danger: "border border-rose-500/30 bg-rose-500/10 text-rose-200 hover:bg-rose-500/20",
   };
   return (

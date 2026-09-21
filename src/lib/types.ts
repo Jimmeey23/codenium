@@ -22,6 +22,29 @@ export type DotType =
   | "classy"
   | "classy-rounded";
 export type CornerSquareType = "square" | "dot" | "extra-rounded";
+
+/** Custom finder-pattern shapes drawn by `lib/eyes.ts` ("auto" = library default). */
+export type EyeFrameStyle =
+  | "auto"
+  | "square"
+  | "rounded"
+  | "circle"
+  | "leaf"
+  | "leaf-flip"
+  | "shield"
+  | "cut"
+  | "diamond"
+  | "bars"
+  | "dotted";
+
+export type EyeBallStyle =
+  | "square"
+  | "dot"
+  | "rounded"
+  | "leaf"
+  | "leaf-flip"
+  | "diamond"
+  | "cut";
 export type CornerDotType = "square" | "dot";
 export type Ecc = "L" | "M" | "Q" | "H";
 export type ExportFormat = "png" | "jpeg" | "webp" | "svg" | "pdf";
@@ -68,6 +91,11 @@ export type DesignConfig = {
   cornerSquareColor: string;
   cornerDotType: CornerDotType;
   cornerDotColor: string;
+  eyeFrameStyle: EyeFrameStyle;
+  eyeBallStyle: EyeBallStyle;
+  /** Give the top-right and bottom-left eyes their own accent colour. */
+  eyeTwoTone: boolean;
+  eyeAccentColor: string;
   bgColor: string;
   bgTransparent: boolean;
   bgGradient: GradientConfig;
@@ -143,18 +171,22 @@ export const DEFAULT_DESIGN: DesignConfig = {
   margin: 24,
   ecc: "H",
   dotType: "extra-rounded",
-  dotColor: "#4c1d95",
+  dotColor: "#0a0a0a",
   dotGradient: {
-    enabled: true,
+    enabled: false,
     type: "linear",
-    from: "#7c3aed",
-    to: "#06b6d4",
+    from: "#0a0a0a",
+    to: "#1f2937",
     rotation: 45,
   },
   cornerSquareType: "extra-rounded",
-  cornerSquareColor: "#5b21b6",
+  cornerSquareColor: "#050505",
   cornerDotType: "dot",
-  cornerDotColor: "#06b6d4",
+  cornerDotColor: "#1d4ed8",
+  eyeFrameStyle: "leaf",
+  eyeBallStyle: "rounded",
+  eyeTwoTone: true,
+  eyeAccentColor: "#1d4ed8",
   bgColor: "#ffffff",
   bgTransparent: false,
   bgGradient: {
@@ -219,14 +251,95 @@ export const STYLE_PRESETS: StylePreset[] = [
   {
     id: "codenium",
     name: "Codenium",
-    swatch: ["#7c3aed", "#06b6d4"],
+    swatch: ["#0a0a0a", "#1d4ed8"],
     design: {
       dotType: "extra-rounded",
-      dotGradient: { enabled: true, type: "linear", from: "#7c3aed", to: "#06b6d4", rotation: 45 },
+      dotColor: "#0a0a0a",
+      dotGradient: { enabled: false, type: "linear", from: "#0a0a0a", to: "#1f2937", rotation: 45 },
       cornerSquareType: "extra-rounded",
-      cornerSquareColor: "#5b21b6",
-      cornerDotColor: "#06b6d4",
+      cornerSquareColor: "#050505",
+      cornerDotColor: "#1d4ed8",
+      eyeFrameStyle: "leaf",
+      eyeBallStyle: "rounded",
+      eyeTwoTone: true,
+      eyeAccentColor: "#1d4ed8",
       bgColor: "#ffffff",
+      bgTransparent: false,
+    },
+  },
+  {
+    id: "carbon",
+    name: "Carbon",
+    swatch: ["#0a0a0a", "#38bdf8"],
+    design: {
+      dotType: "square",
+      dotColor: "#0a0a0a",
+      dotGradient: { enabled: false, type: "linear", from: "#0a0a0a", to: "#0a0a0a", rotation: 0 },
+      cornerSquareType: "square",
+      cornerSquareColor: "#0a0a0a",
+      cornerDotColor: "#0284c7",
+      eyeFrameStyle: "cut",
+      eyeBallStyle: "cut",
+      eyeTwoTone: true,
+      eyeAccentColor: "#0284c7",
+      bgColor: "#ffffff",
+      bgTransparent: false,
+    },
+  },
+  {
+    id: "circuit",
+    name: "Circuit",
+    swatch: ["#111827", "#2563eb"],
+    design: {
+      dotType: "dots",
+      dotColor: "#111827",
+      dotGradient: { enabled: false, type: "linear", from: "#111827", to: "#111827", rotation: 0 },
+      cornerSquareType: "dot",
+      cornerSquareColor: "#111827",
+      cornerDotColor: "#2563eb",
+      eyeFrameStyle: "dotted",
+      eyeBallStyle: "dot",
+      eyeTwoTone: true,
+      eyeAccentColor: "#2563eb",
+      bgColor: "#ffffff",
+      bgTransparent: false,
+    },
+  },
+  {
+    id: "mono",
+    name: "Mono",
+    swatch: ["#000000", "#6b7280"],
+    design: {
+      dotType: "square",
+      dotGradient: { enabled: false, type: "linear", from: "#000000", to: "#000000", rotation: 0 },
+      dotColor: "#000000",
+      cornerSquareType: "square",
+      cornerSquareColor: "#000000",
+      cornerDotColor: "#000000",
+      eyeFrameStyle: "square",
+      eyeBallStyle: "square",
+      eyeTwoTone: false,
+      eyeAccentColor: "#000000",
+      bgColor: "#ffffff",
+      bgTransparent: false,
+    },
+  },
+  {
+    id: "neon",
+    name: "Neon",
+    swatch: ["#00e5ff", "#0b0b0b"],
+    design: {
+      dotType: "classy",
+      dotColor: "#e6fbff",
+      dotGradient: { enabled: true, type: "linear", from: "#00e5ff", to: "#7c3aed", rotation: 90 },
+      cornerSquareType: "dot",
+      cornerSquareColor: "#00e5ff",
+      cornerDotColor: "#f0abfc",
+      eyeFrameStyle: "circle",
+      eyeBallStyle: "dot",
+      eyeTwoTone: true,
+      eyeAccentColor: "#f0abfc",
+      bgColor: "#0b0b0b",
       bgTransparent: false,
     },
   },
@@ -236,68 +349,16 @@ export const STYLE_PRESETS: StylePreset[] = [
     swatch: ["#f97316", "#db2777"],
     design: {
       dotType: "classy-rounded",
+      dotColor: "#db2777",
       dotGradient: { enabled: true, type: "linear", from: "#f97316", to: "#db2777", rotation: 30 },
       cornerSquareType: "dot",
-      cornerSquareColor: "#db2777",
+      cornerSquareColor: "#1f1013",
       cornerDotColor: "#f97316",
+      eyeFrameStyle: "leaf-flip",
+      eyeBallStyle: "leaf-flip",
+      eyeTwoTone: true,
+      eyeAccentColor: "#db2777",
       bgColor: "#fff7ed",
-      bgTransparent: false,
-    },
-  },
-  {
-    id: "matrix",
-    name: "Matrix",
-    swatch: ["#22c55e", "#052e16"],
-    design: {
-      dotType: "dots",
-      dotGradient: { enabled: true, type: "radial", from: "#4ade80", to: "#15803d", rotation: 0 },
-      cornerSquareType: "square",
-      cornerSquareColor: "#22c55e",
-      cornerDotColor: "#bbf7d0",
-      bgColor: "#04140a",
-      bgTransparent: false,
-    },
-  },
-  {
-    id: "mono",
-    name: "Mono",
-    swatch: ["#111827", "#6b7280"],
-    design: {
-      dotType: "square",
-      dotGradient: { enabled: false, type: "linear", from: "#111827", to: "#111827", rotation: 0 },
-      dotColor: "#0f172a",
-      cornerSquareType: "square",
-      cornerSquareColor: "#0f172a",
-      cornerDotColor: "#0f172a",
-      bgColor: "#ffffff",
-      bgTransparent: false,
-    },
-  },
-  {
-    id: "ocean",
-    name: "Ocean",
-    swatch: ["#0ea5e9", "#1e1b4b"],
-    design: {
-      dotType: "rounded",
-      dotGradient: { enabled: true, type: "linear", from: "#38bdf8", to: "#1e1b4b", rotation: 135 },
-      cornerSquareType: "extra-rounded",
-      cornerSquareColor: "#1e3a8a",
-      cornerDotColor: "#38bdf8",
-      bgColor: "#f0f9ff",
-      bgTransparent: false,
-    },
-  },
-  {
-    id: "neon",
-    name: "Neon",
-    swatch: ["#f0abfc", "#0b0b18"],
-    design: {
-      dotType: "classy",
-      dotGradient: { enabled: true, type: "linear", from: "#f0abfc", to: "#22d3ee", rotation: 90 },
-      cornerSquareType: "dot",
-      cornerSquareColor: "#f0abfc",
-      cornerDotColor: "#22d3ee",
-      bgColor: "#0b0b18",
       bgTransparent: false,
     },
   },

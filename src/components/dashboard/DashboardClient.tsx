@@ -102,7 +102,7 @@ export function DashboardClient({ codes }: { codes: QrCodeDTO[] }) {
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search by name, slug or destination…"
-          className="min-w-0 flex-1 rounded-xl border border-white/10 bg-white/[0.04] px-4 py-2.5 text-sm text-white placeholder-white/25 outline-none focus:border-violet-400/60 focus:ring-2 focus:ring-violet-500/25"
+          className="min-w-0 flex-1 rounded-xl border border-white/10 bg-black/40 px-4 py-2.5 text-sm text-white placeholder-white/25 outline-none focus:border-cyan-400/60 focus:ring-2 focus:ring-cyan-400/20"
         />
         <Link href="/" className="btn-primary rounded-xl px-5 py-2.5 text-sm font-semibold text-white">
           + New code

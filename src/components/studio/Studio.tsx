@@ -262,7 +262,7 @@ export function Studio({ initialCode }: { initialCode: QrCodeDTO | null }) {
                 className={cx(
                   "rounded-2xl px-3 py-2.5 text-xs font-semibold transition",
                   tab === t.id
-                    ? "bg-gradient-to-br from-violet-500/90 to-indigo-600/90 text-white shadow-lg shadow-violet-900/40"
+                    ? "bg-white/[0.07] text-white ring-1 ring-cyan-400/50 shadow-[0_0_16px_-4px_rgba(0,229,255,0.5)]"
                     : "text-white/50 hover:bg-white/5 hover:text-white/85",
                 )}
               >

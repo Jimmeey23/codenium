@@ -3,17 +3,17 @@ import Link from "next/link";
 
 export function SiteHeader({ active }: { active?: "studio" | "dashboard" }) {
   return (
-    <header className="sticky top-0 z-40 border-b border-white/5 bg-[#05040f]/70 backdrop-blur-xl">
+    <header className="sticky top-0 z-40 border-b border-white/[0.07] bg-[#050505]/85 backdrop-blur-xl">
       <div className="mx-auto flex max-w-[1600px] items-center justify-between gap-4 px-4 py-3 sm:px-8">
         <Link href="/" className="group flex items-center gap-3">
           <span className="relative">
-            <span className="absolute -inset-1.5 rounded-xl bg-violet-500/30 blur-md transition group-hover:bg-violet-400/50" />
+            <span className="absolute -inset-1.5 rounded-xl bg-cyan-400/20 blur-md transition group-hover:bg-cyan-400/35" />
             <Image
               src="/brand/logo.png"
               alt="Codenium"
               width={40}
               height={40}
-              className="relative h-9 w-9 rounded-xl bg-white object-contain p-1 ring-1 ring-white/15"
+              className="relative h-9 w-9 rounded-xl bg-black object-contain p-1 ring-1 ring-white/12"
               priority
             />
           </span>
@@ -24,6 +24,9 @@ export function SiteHeader({ active }: { active?: "studio" | "dashboard" }) {
             <span className="block text-[10px] uppercase tracking-[0.2em] text-white/35">
               3D QR Studio
             </span>
+            <span className="block text-[9px] font-medium tracking-[0.18em] text-white/25">
+              By Jimmeey Gondaa
+            </span>
           </span>
         </Link>
 
@@ -32,7 +35,7 @@ export function SiteHeader({ active }: { active?: "studio" | "dashboard" }) {
             href="/"
             className={`rounded-xl px-3.5 py-2 text-xs font-semibold transition sm:text-sm ${
               active === "studio"
-                ? "bg-white/10 text-white"
+                ? "bg-white/[0.07] text-white ring-1 ring-cyan-400/40"
                 : "text-white/55 hover:bg-white/5 hover:text-white"
             }`}
           >
@@ -42,7 +45,7 @@ export function SiteHeader({ active }: { active?: "studio" | "dashboard" }) {
             href="/dashboard"
             className={`rounded-xl px-3.5 py-2 text-xs font-semibold transition sm:text-sm ${
               active === "dashboard"
-                ? "bg-white/10 text-white"
+                ? "bg-white/[0.07] text-white ring-1 ring-cyan-400/40"
                 : "text-white/55 hover:bg-white/5 hover:text-white"
             }`}
           >
@@ -50,7 +53,7 @@ export function SiteHeader({ active }: { active?: "studio" | "dashboard" }) {
           </Link>
           <Link
             href="/#studio"
-            className="btn-primary ml-1 rounded-xl px-4 py-2 text-xs font-semibold text-white sm:text-sm"
+            className="btn-primary ml-1 rounded-xl px-4 py-2 text-xs font-semibold sm:text-sm"
           >
             New code
           </Link>

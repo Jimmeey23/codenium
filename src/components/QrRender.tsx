@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import type QRCodeStyling from "qr-code-styling";
-import { flatOptions, paintIso } from "@/lib/qr-export";
+import { flatSvg, paintIso } from "@/lib/qr-export";
 import type { DesignConfig } from "@/lib/types";
 import { cx } from "./ui";
 
@@ -17,7 +16,6 @@ type Props = {
 export function QrRender({ design, data, pixelSize = 520, className }: Props) {
   const hostRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const instanceRef = useRef<QRCodeStyling | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -34,13 +32,9 @@ export function QrRender({ design, data, pixelSize = 520, className }: Props) {
           }
           const host = hostRef.current;
           if (!host) return;
-          const { default: QRCodeStylingCtor } = await import("qr-code-styling");
+          const svg = await flatSvg(design, data, pixelSize);
           if (cancelled) return;
-          const options = { ...flatOptions(design, data, pixelSize), type: "svg" as const };
-          host.innerHTML = "";
-          const instance = new QRCodeStylingCtor(options);
-          instanceRef.current = instance;
-          instance.append(host);
+          host.innerHTML = svg;
           setError(null);
         } catch (err) {
           if (!cancelled) setError(err instanceof Error ? err.message : "Render failed");

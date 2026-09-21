@@ -2,7 +2,8 @@
   "name": "codenium",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "node scripts/dev.mjs",
+    "dev:raw": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",

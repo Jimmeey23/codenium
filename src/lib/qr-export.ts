@@ -1,6 +1,7 @@
 "use client";
 
 import type { Options as QrStylingOptions } from "qr-code-styling";
+import { eyeGeometry, eyesSvg, usesCustomEyes } from "./eyes";
 import { buildIsoScene, buildMatrix, clearCenter, isoSceneToSvg, paintIsoScene } from "./iso3d";
 import type { DesignConfig, ExportFormat } from "./types";
 
@@ -53,9 +54,65 @@ export function flatOptions(design: DesignConfig, data: string, size: number): Q
       color: design.bgTransparent ? "rgba(255,255,255,0)" : design.bgColor,
       ...(bgGradient && !design.bgTransparent ? { gradient: bgGradient } : {}),
     },
-    cornersSquareOptions: { type: design.cornerSquareType, color: design.cornerSquareColor },
-    cornersDotOptions: { type: design.cornerDotType, color: design.cornerDotColor },
+    cornersSquareOptions: {
+      type: design.cornerSquareType,
+      color: usesCustomEyes(design) ? "transparent" : design.cornerSquareColor,
+    },
+    cornersDotOptions: {
+      type: design.cornerDotType,
+      color: usesCustomEyes(design) ? "transparent" : design.cornerDotColor,
+    },
   } as QrStylingOptions;
+}
+
+/**
+ * Flat engine as an SVG string, with our custom finder patterns stamped on top
+ * when a non-"auto" eye style is selected. Used by the preview, the SVG export
+ * and the raster exports so all three stay identical.
+ */
+export async function flatSvg(
+  design: DesignConfig,
+  data: string,
+  size: number,
+  inlineImage = false,
+): Promise<string> {
+  const { default: QRCodeStyling } = await import("qr-code-styling");
+  const opts = flatOptions(design, data, size);
+  if (inlineImage && opts.image) opts.image = await toDataUrl(opts.image);
+  const qr = new QRCodeStyling({ ...opts, type: "svg" });
+  const blob = (await qr.getRawData("svg")) as Blob | null;
+  if (!blob) throw new Error("Unable to render QR code");
+  let svg = await blob.text();
+  if (!usesCustomEyes(design)) return svg;
+
+  const count = buildMatrix(data || " ", design.ecc).size;
+  const geo = eyeGeometry(size, Number(opts.margin ?? 0), count);
+  const overlay = eyesSvg(design, geo);
+  const close = svg.lastIndexOf("</svg>");
+  if (close === -1) return svg;
+  svg = svg.slice(0, close) + overlay + svg.slice(close);
+  return svg;
+}
+
+function svgToCanvas(svg: string, size: number): Promise<HTMLCanvasElement> {
+  return new Promise((resolve, reject) => {
+    const url = URL.createObjectURL(new Blob([svg], { type: "image/svg+xml;charset=utf-8" }));
+    const img = new Image();
+    img.onload = () => {
+      const canvas = document.createElement("canvas");
+      canvas.width = size;
+      canvas.height = size;
+      const ctx = canvas.getContext("2d");
+      ctx?.drawImage(img, 0, 0, size, size);
+      URL.revokeObjectURL(url);
+      resolve(canvas);
+    };
+    img.onerror = () => {
+      URL.revokeObjectURL(url);
+      reject(new Error("Unable to rasterise QR code"));
+    };
+    img.src = url;
+  });
 }
 
 export function loadImage(src: string): Promise<HTMLImageElement> {
@@ -95,6 +152,10 @@ export async function paintIso(canvas: HTMLCanvasElement, design: DesignConfig, 
 }
 
 async function flatRaster(design: DesignConfig, data: string, size: number): Promise<HTMLCanvasElement> {
+  if (usesCustomEyes(design)) {
+    // Custom eyes only exist in our SVG layer, so rasterise that.
+    return svgToCanvas(await flatSvg(design, data, size, true), size);
+  }
   const { default: QRCodeStyling } = await import("qr-code-styling");
   const qr = new QRCodeStyling({ ...flatOptions(design, data, size), type: "canvas" });
   const blob = (await qr.getRawData("png")) as Blob | null;
@@ -214,13 +275,7 @@ export async function renderSvg(design: DesignConfig, data: string): Promise<str
     const href = design.logoEnabled && design.logoSrc ? await toDataUrl(design.logoSrc) : null;
     inner = isoSceneToSvg(scene, design, href);
   } else {
-    const { default: QRCodeStyling } = await import("qr-code-styling");
-    const opts = flatOptions(design, data, size);
-    if (opts.image) opts.image = await toDataUrl(opts.image);
-    const qr = new QRCodeStyling({ ...opts, type: "svg" });
-    const blob = (await qr.getRawData("svg")) as Blob | null;
-    if (!blob) throw new Error("Unable to render SVG");
-    inner = await blob.text();
+    inner = await flatSvg(design, data, size, true);
   }
 
   if (!design.frame.enabled) return inner;
